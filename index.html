@@ -32,11 +32,28 @@
   </head>
 
   <body>
-    <header class="p-5 mb-4">
-      <h1 class="display-3">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
-      <p id="currentDay" class="lead"></p>
+    <header class="p-5 mb-4 d-flex flex-column align-items-center">
+      <h1 class="display-3 text-center">Work Day Scheduler</h1>
+      <p class="lead text-center">A simple calendar app for scheduling your work day</p>
+      <!-- Current day from dayJS -->
+      <p id="currentDay" class="lead text-center"></p>
     </header>
+    <!-- Color Legend -->
+    <div class ="legend d-flex justify-content-center ">
+      <div class = "legend-item d-flex align-items-center">
+        <div class ="squircle present"></div>
+        <p>Present</p>
+      </div>
+      <div class = "legend-item d-flex align-items-center">
+        <div class ="squircle past"></div>
+        <p>Past</p>
+      </div>
+      <div class = "legend-item d-flex align-items-center">
+        <div class ="squircle future"></div>
+        <p>Future</p>
+      </div>
+    </div>
+    <!-- Schedule -->
     <div id = "schedule" class="container-fluid px-5">
     </div>
   </body>
