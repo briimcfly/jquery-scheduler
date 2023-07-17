@@ -78,3 +78,37 @@ for (i=0; i < shiftLength; i++){
 
   shiftHour ++;
 }
+
+
+
+$(`button`).click(function(){
+  let userEvent = $(this).prev('.description').val();
+  let eventHour = $(this).siblings(`.hour`).text();
+
+  let userEventData = {
+    userEvent: userEvent,
+    eventHour: eventHour
+  };
+
+  let existingDataJSON = localStorage.getItem(`eventData`);
+  //If data exists, get it.. else, return an empty array
+  let existingData = existingDataJSON ? JSON.parse(existingDataJSON) : [];
+
+  let existingEvent = existingData.findIndex((event) => event.eventHour === eventHour);
+
+  //If Update the eventHour with the new userEvent
+  if(existingEvent !== -1) {
+    existingData[existingEvent].userEvent = userEvent;
+  }
+  else {
+    existingData.push(userEventData);
+  }
+
+
+  localStorage.setItem(`eventData`, JSON.stringify(existingData));
+});
+
+
+
+
+
