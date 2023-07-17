@@ -24,7 +24,7 @@ $(`<div>`, {
   );
 
   //Shift Start Time (in 0-23)
-  var shiftHour = 15;
+  var shiftHour = 9;
 
   //Current Hour (in 0-23)
   var currentHour = today.hour();
@@ -34,7 +34,7 @@ $(`<div>`, {
 
 
 //Generate a row for each hour in Shift Length and apply Present, Past, or Future class
-for (i=0; i < shiftLength; i++){
+for (i=0; i < shiftLength + 1; i++){
   hourBlock
   .clone()
   .appendTo(`#schedule`)
@@ -94,11 +94,14 @@ $(`button`).click(function(){
 
   let fromStorage = JSON.parse(localStorage.getItem(`eventData`));
 
+  //Go through stored Object...
   fromStorage.forEach(function(event){
     let storedEvent = event.eventHour;
 
+    //Check every hour Row for an existing event in Local Storage.
     $(`.description`).each(function(){
       if($(this).attr("id") == storedEvent){
+        //if something exists in local storage, update the textarea value
         $(this).val(event.userEvent);
       }
     })
