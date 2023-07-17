@@ -1,25 +1,5 @@
 var today = dayjs();
 $(`#currentDay`).text(today.format(`dddd, MMMM YYYY`))
-  // $(function () {
-    // TODO: Add a listener for click events on the save button. This code should
-    // use the id in the containing time-block as a key to save the user input in
-    // local storage. HINT: What does `this` reference in the click listener
-    // function? How can DOM traversal be used to get the "hour-x" id of the
-    // time-block containing the button that was clicked? How might the id be
-    // useful when saving the description in local storage?
-    //
-    // TODO: Add code to apply the past, present, or future class to each time
-    // block by comparing the id to the current hour. HINTS: How can the id
-    // attribute of each time-block be used to conditionally add or remove the
-    // past, present, and future classes? How can Day.js be used to get the
-    // current hour in 24-hour time?
-    //
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-    // TODO: Add code to display the current date in the header of the page.
-  // });
 
 //Hour Row
 var hourBlock = 
@@ -55,13 +35,13 @@ $(`<div>`, {
 
 //Generate a row for each hour in Shift Length and apply Present, Past, or Future class
 for (i=0; i < shiftLength; i++){
-  console.log(shiftHour);
-  console.log(currentHour);
-  console.log(`-----------`);
   hourBlock
   .clone()
   .appendTo(`#schedule`)
   .children().eq(0).text(dayjs().hour(shiftHour).format(`h A`));
+
+  //add the Shift hour as an ID to each Text Area to reference later with stored events
+  $(`.description`).last().attr(`id`, dayjs().hour(shiftHour).format(`h A`));
 
   //if this row = current hour...
   if(shiftHour == currentHour) {
@@ -90,23 +70,45 @@ $(`button`).click(function(){
     eventHour: eventHour
   };
 
+  //Check localstorage for any eventData
   let existingDataJSON = localStorage.getItem(`eventData`);
-  //If data exists, get it.. else, return an empty array
+  //If data exists, parse it.. else, return an empty array
   let existingData = existingDataJSON ? JSON.parse(existingDataJSON) : [];
 
+  //Check to see if a userEvent has already been applied to an eventHour
   let existingEvent = existingData.findIndex((event) => event.eventHour === eventHour);
-
-  //If Update the eventHour with the new userEvent
+  //If so... Update that hours entry with the new userEvent
   if(existingEvent !== -1) {
     existingData[existingEvent].userEvent = userEvent;
   }
+  //if not... create new userEventData entry
   else {
     existingData.push(userEventData);
   }
 
-
+  //set to local storage
   localStorage.setItem(`eventData`, JSON.stringify(existingData));
 });
+
+//Check Local Storage and Fill Text Area with Existing Data 
+
+  let fromStorage = JSON.parse(localStorage.getItem(`eventData`));
+
+  fromStorage.forEach(function(event){
+    let storedEvent = event.eventHour;
+
+    $(`.description`).each(function(){
+      if($(this).attr("id") == storedEvent){
+        $(this).val(event.userEvent);
+      }
+    })
+
+  })
+
+
+
+
+
 
 
 
