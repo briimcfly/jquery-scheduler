@@ -22,7 +22,7 @@
 ## Overview 
 The goal of this project is to create a calendar application that allows users to save events for each hour of a typical working day (9am-5pm). The application retrieves current day from Day.js, and saves new events to Local Storage. Past, Present, and Future hours are color coded to help user quickly identify upcoming events. 
 
-![application image](assets/images/readme-img.png)
+![application image](Assets/images/readme-img.png)
 
 ## Technologies Used 
 * [Day.js](https://day.js.org/)
