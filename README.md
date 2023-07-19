@@ -1,4 +1,4 @@
-# Work Day Scheduler Starter Code
+# Work Day Scheduler
 ## User Story
 `AS AN` employee with a busy schedule <br>
 `I WANT` to add important events to a daily planner <br>
